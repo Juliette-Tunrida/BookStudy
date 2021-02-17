@@ -12,6 +12,7 @@ For Mac and Linux:
    Now youve installed it. Whenever you want to run it open your terminal and enter
    
   `cd BookStudy`
+  
   And then to run it enter
   
   `java bookStudy`
