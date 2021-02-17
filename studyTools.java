@@ -1,0 +1,118 @@
+import java.util.Scanner;
+
+public class studyTools{
+  public static void readLoop(){
+    //The main loop for reading the current book
+    fileWorks fwo = new fileWorks();
+    tools tool = new tools();
+    writer wr = new writer();
+
+    String book = fwo.readBook();
+
+    String[] paragraphs = book.split("\n");
+
+    //Selecting paragraph
+    String para = paragraphs[paragraphs.length-1]; //Selected paragraph is stored in the last line of the book
+
+    int paraInt = 0;
+    if (tool.isNumber(para)) {
+      paraInt = Integer.parseInt(para);
+    }
+
+    //Read the book starting at the Selected paragraph
+    for (int i = paraInt; i < paragraphs.length; i++) {
+      wr.printLetterFilter(paragraphs[i] + "\n",false);
+
+      //updating the number in the bookfile in case the terminal is terminated
+      String outBook ="";
+      for (int j = 0;j < paragraphs.length -1;j++ ) {
+        outBook = outBook + paragraphs[j] + "\n";
+      }
+      outBook = outBook + "\n" + (i+1);
+
+      fwo.newBook(outBook,false);
+
+      betweenPara();
+
+
+
+    }
+
+  }
+
+
+  public static void betweenPara(){
+    tools tool = new tools();
+    Scanner sc = new Scanner(System.in);
+    writer wr = new writer();
+    fileWorks fw = new fileWorks();
+
+
+    String ret = sc.nextLine();
+
+    //Checks if user entered !help. if they did it shows the commands then lets the user enter something new
+    for (boolean selected = false;selected ==false; ) {
+      if (ret.contains("!help")) {
+        wr.printLetterBool("List of between paragraph commands:\n",true);
+        wr.printLetterBool("    simply press return - continue to next paragraph\n",true);
+        wr.printLetterBool("    !help - opens this list\n",true);
+        wr.printLetterBool("    !note + your text - Writes a note in the current file (use !n for new lines)\n",true);
+        wr.printLetterBool("    !new + name - Creates a new note File\n",true);
+        wr.printLetterBool("    !change - gives you a list of note files and allows you to switch the selected one\n",true);
+
+        ret = sc.nextLine();
+      }else if (ret.contains("!new")) {
+        //Allows you to create a new note file
+        fw.newNotes(ret);
+        ret = sc.nextLine();
+      }else if (ret.contains("!change")) {
+        //Allows you to change the note file
+
+        String[] names = fw.noteList();
+
+        //returns all options
+        boolean sel = false;
+        while (sel == false) {
+          for (int i = 0;i < names.length ;i++ ) {
+            wr.printLetterBool(i + " " + names[i] + "\n",true);
+
+          }
+
+          //lets user choose options
+          ret = sc.nextLine();
+
+          //checks if user returned an int and if so selects default
+          if (tool.isNumber(ret)) {
+           int retInt = Integer.parseInt(ret);
+
+           if (retInt >= 0 && retInt < names.length) {
+             sel = true;
+             fw.newDefault(names[retInt]);
+             wr.printLetterBool("Selected: " + names[retInt] + " as default note\n",true);
+
+           }
+          }
+          if (sel == false) {
+            wr.printLetterBool("Sorry that was not an option.",true);
+          }
+        }
+        ret = sc.nextLine();
+      }else{
+
+        selected = true;
+      }
+    }
+
+
+    if (ret.contains("!note")) {
+      //Allows you to enter a new note
+      fw.writeNote(ret);
+    }
+
+  }
+
+
+
+
+
+}
