@@ -4,11 +4,19 @@ This is supposed to be a terminal application to read online books and articles 
 
 # How to use
 
-The main file is bookStudy.java so you will need to run that to start the programm
+For Mac and Linux:
+  To download the Repo open your terminal and enter:
+  `git clone https://github.com/Juliette-Tunrida/BookStudy`
+  
+   Now youve installed it. Whenever you want to run it open your terminal and enter
+  `cd BookStudy`
+  And then to run it enter
+  `java bookStudy`
+  
 
-so run java bookStudy in your termindal after cd ing into the Book Study folder
+For Windows:
 
-I will need to make it possible for windows users to use since for some reason windows uses \ between files intead of /
+Cry. Sorry this isnt useable for Windows yet :( or very buggy at least
 
 # Adding a new book
 
