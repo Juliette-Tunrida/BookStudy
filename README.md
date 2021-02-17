@@ -6,11 +6,14 @@ This is supposed to be a terminal application to read online books and articles 
 
 For Mac and Linux:
   To download the Repo open your terminal and enter:
+  
   `git clone https://github.com/Juliette-Tunrida/BookStudy`
   
    Now youve installed it. Whenever you want to run it open your terminal and enter
+   
   `cd BookStudy`
   And then to run it enter
+  
   `java bookStudy`
   
 
