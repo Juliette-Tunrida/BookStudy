@@ -6,17 +6,17 @@ This is supposed to be a terminal application to read online books and articles 
 
 For Mac, Linux and hopefully Windows:
   To download the Repo open your terminal and enter:
-  
+
   `git clone https://github.com/Juliette-Tunrida/BookStudy`
-  
+
    Now youve installed it. Whenever you want to run it open your terminal and enter
-   
+
   `cd BookStudy`
-  
+
   And then to run it enter
-  
+
   `java bookStudy`
-  
+
 
 # Adding a new book
 
@@ -30,13 +30,13 @@ while reading between each paragraph you will have multiple options.
 just press enter and continue,
 
 enter !new <name> to create a new file for notes (for example you name it after the book),
-  
+
 enter !change to change to a different note file when switching books or for notes in a different category,
 
 enter !note <text> to write to the current selected note file. Use !n or \n to create a new line.
-  
+
 You can find all your notes in the Data folder. Any notes made before creating a new note file will be stored in DefaultNote.txt
 
-# Enjoy Reading! 
+# Enjoy Reading!
 
 (If you have any suggestions or feedback please let me know :D)

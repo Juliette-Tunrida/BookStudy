@@ -18,8 +18,8 @@ public class bookStudy{
         if (retInt == 1) {
           //new book
           Selected = true;
-          wr.printLetters("\nPlease enter the chapters url\n"
-                          + "(If there are errors feel free to copy the text into Data/CurrentBook.txt)\n",30);
+          wr.printLetters("\nPlease enter the chapters url (must be an html file!)\n"
+                          + "(If there are errors feel free to copy the text into Data -> CurrentBook.txt)\n",30);
           ret = sc.nextLine();
           fwo.newBook(wf.pageFilter(wf.getPageContents(ret)),true);
           st.readLoop();
