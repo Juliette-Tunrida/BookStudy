@@ -7,9 +7,11 @@ import java.io.PrintWriter;
 
 public class fileWorks{
   public static void newBook(String text,boolean newb){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
     try {
 
-      FileWriter fw = new FileWriter("Data/CurrentBook.txt");
+      FileWriter fw = new FileWriter("Data"+ slash +"CurrentBook.txt");
       PrintWriter out = new PrintWriter(fw);
 
       if (newb == true) {
@@ -30,11 +32,13 @@ public class fileWorks{
   }
 
   public static String readBook(){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
     String line = "";
     String text = "";
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader("Data/CurrentBook.txt"));
+      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"CurrentBook.txt"));
       while((line = br.readLine())!= null){
         text = text + line + "\n";
       }
@@ -45,10 +49,13 @@ public class fileWorks{
   }
 
   public static void newNotes(String name){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
+
     name = name.replace("!new","");
     name = name.replace(" ","");
 
-    String file = "Data/" + name + ".txt";
+    String file = "Data"+slash + name + ".txt";
 
 
     try {
@@ -68,7 +75,7 @@ public class fileWorks{
 
       String[] nl = noteList();
 
-      FileWriter fwr = new FileWriter("Data/noteList.txt");
+      FileWriter fwr = new FileWriter("Data"+slash+"noteList.txt");
       PrintWriter outt = new PrintWriter(fwr);
 
       for (int i = 0;i < nl.length ;i++ ) {
@@ -88,6 +95,8 @@ public class fileWorks{
   }
 
   public static void newDefault(String name){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
     name = name.replace("!change","");
 
 
@@ -101,7 +110,7 @@ public class fileWorks{
 
     try {
       //Creating new file
-      FileWriter fw = new FileWriter("Data/selectedNote.txt");
+      FileWriter fw = new FileWriter("Data"+slash+"selectedNote.txt");
       PrintWriter out = new PrintWriter(fw);
 
       out.print(file);
@@ -119,11 +128,13 @@ public class fileWorks{
   }
 
   public static String[] noteList(){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
     String list = "";
     String line = "";
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader("Data/noteList.txt"));
+      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"noteList.txt"));
       while((line = br.readLine())!=null){
         list = list + line + "\n";
       }
@@ -152,15 +163,17 @@ public class fileWorks{
   }
 
   public static void writeNote(String note){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
 
     //Writes a note to a note file
     note = note.replace("!note","");
     note = note.replace("!n","\n");
 
-    String selnote = readFile("Data/selectedNote.txt");
+    String selnote = readFile("Data"+slash+"selectedNote.txt");
     selnote = selnote.replace(" ","");
     selnote = selnote.replace("\n","");
-    selnote = "Data/" + selnote;
+    selnote = "Data" + slash + selnote;
 
     try {
       //Gets notes from file
