@@ -55,37 +55,19 @@ public class webFilter{
 
     //Removing and replacing code
 
-    body = body.replaceAll("&#8220;","\"");
-    body = body.replaceAll("&#8221;","\"");
-    body = body.replaceAll("&#8217;","'");
-    body = body.replaceAll("&#8216;","'");
-    body = body.replaceAll("&#8212;","-");
-    body = body.replaceAll("&#8211;","-");
-    body = body.replaceAll("&auml;","ae");
-    body = body.replaceAll("&uuml;","ue");
-    body = body.replaceAll("&ouml;","oe");
-
-    String[] toRemove = {"<p>","<br />","<br>","</br>","<br/>"
-                        ,"<h1>","<h2>","<h3>","<h4>","<h5>","<h6>"
-                        ,"</h1>","</h2>","</h3>","</h4>","</h5>","</h6>"
-                        ,"</span>","</sup>","</a>","<em>","</em>"
-                        ,"<hr>","<tbody>"};
-
-    for (int i = 0;i < toRemove.length ;i++ ) {
-      body = body.replaceAll(toRemove[i],"");
-    }
-
     //Removing sections
 
-    String splby = ">...<";
+    String splby = "-------";
 
-    String[] secRemove = {"<img" + splby + "/>","<hr" + splby + "/>"
-                          ,"<p" + splby + ">","<span" + splby + ">"
-                          ,"<a" + splby + ">"
-                          ,"<div" + splby + ">","<table" + splby + ">"
-                          ,"<sup" + splby + ">","<P" + splby + ">"};
+    String[] secRemove = {"<img " + splby + "/>","<hr " + splby + "/>"
+                          ,"<p " + splby + ">","<span " + splby + ">"
+                          ,"<a " + splby + ">"
+                          ,"<div " + splby + ">","<table " + splby + ">"
+                          ,"<sup " + splby + ">","<P " + splby + ">"
+                          ,"<hr " + splby + ">"};
 
-    for (int i = 0;i< secRemove.length ;i++ ) {
+    for (int i = 0;i<secRemove.length ;i++ ) {
+      //splits the beginning and the end into two strings
       String temp1 = secRemove[i].split(splby)[0];
       String temp2 = secRemove[i].split(splby)[1];
 
@@ -93,16 +75,51 @@ public class webFilter{
 
       body = "";
 
-      for (int j = 0; j < arrTemp.length; j++) {
-        String[] arrTemp2 = arrTemp[j].split(temp2,2);
-        if (arrTemp2.length > 1) {
-          arrTemp[j] = arrTemp2[1];
-        }
+      for (int j = 0;j <  arrTemp.length;j++ ) {
+        arrTemp[j] = temp1 + arrTemp[j];
 
+        int in1 = arrTemp[j].indexOf(temp1);
+        int in2 = arrTemp[j].indexOf(temp2);
+
+        System.out.println(in1 + " - " + in2);
+
+        if(in1 != -1 && in2 != -1){
+          in2 += temp2.length();
+
+          String sub = arrTemp[j].substring(in1,in2);
+          System.out.println(sub);
+          arrTemp[j] = arrTemp[j].replace(sub,"");
+        }
         body = body + arrTemp[j];
 
       }
+
+
     }
+
+    body = body.replace("&#8220;","\"");
+    body = body.replace("&#8221;","\"");
+    body = body.replace("&ldquo;","\"");
+    body = body.replace("&rdquo;","\"");
+    body = body.replace("&#8217;","'");
+    body = body.replace("&#8216;","'");
+    body = body.replace("&#8212;","-");
+    body = body.replace("&#8211;","-");
+    body = body.replace("&auml;","ae");
+    body = body.replace("&uuml;","ue");
+    body = body.replace("&ouml;","oe");
+    body = body.replace("&amp;","&");
+
+    String[] toRemove = {"<p>","<br />","<br>","</br>","<br/>"
+                        ,"<h1>","<h2>","<h3>","<h4>","<h5>","<h6>"
+                        ,"</h1>","</h2>","</h3>","</h4>","</h5>","</h6>"
+                        ,"</span>","</sup>","</a>","<em>","</em>"
+                        ,"<hr>","<tbody>","</blockquote>","&#160;","</div>"};
+
+    for (int i = 0;i < toRemove.length ;i++ ) {
+      body = body.replace(toRemove[i],"");
+    }
+
 
     String[] arrBody = body.split("</p>");
 
