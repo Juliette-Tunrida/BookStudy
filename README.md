@@ -4,7 +4,7 @@ This is supposed to be a terminal application to read online books and articles 
 
 # How to use
 
-For Mac and Linux:
+For Mac, Linux and hopefully Windows:
   To download the Repo open your terminal and enter:
   
   `git clone https://github.com/Juliette-Tunrida/BookStudy`
@@ -17,10 +17,6 @@ For Mac and Linux:
   
   `java bookStudy`
   
-
-For Windows:
-
-Cry. Sorry this isnt useable for Windows yet :( or very buggy at least
 
 # Adding a new book
 
