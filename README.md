@@ -1,6 +1,6 @@
 # BookStudy
 This is supposed to be a terminal application to read online books and articles better since digital reading is harder than analog reading it will read out the book for you. (its designed for marxists.org but can be used for other sites... I hope)
-![Sneek peek into what it looks like](https://github.com/Juliette-Tunrida/BookStudy/blob/Juliette-Tunrida-patch-1/Bookstudytutorialgif.gif)
+![Sneek peek into what it looks like](https://github.com/Juliette-Tunrida/BookStudy/blob/master/Bookstudytutorialgif.gif)
 
 # How to use
 
