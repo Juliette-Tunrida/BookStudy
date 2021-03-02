@@ -1,6 +1,6 @@
 # BookStudy
 This is  a terminal application to read online books and articles better since digital reading is harder than analog reading. This program allows you to feed it links and it will write out their text. It also includes some tools to help you write notes and study the texts properly.
-![Sneek peek into what it looks like](https://github.com/Juliette-Tunrida/BookStudy/blob/main/Bookstudytutorialgif.gif)
+
 # How to use
 
 For Mac, Linux and hopefully Windows:
@@ -14,7 +14,7 @@ For Mac, Linux and hopefully Windows:
   
   And then to run it enter
   
-  `java bookStudy`
+  `java -jar bookStudy.jar`
   
 
 # Adding a new book
