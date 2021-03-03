@@ -1,33 +1,151 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.File;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class fileWorks{
-  public static void newBook(String text,boolean newb){
-    tools tool = new tools();
-    String slash = tool.betweenFiles();
-    try {
 
-      FileWriter fw = new FileWriter("Data"+ slash +"CurrentBook.txt");
+  public static void changeMainBook(){
+
+      writer wr = new writer();
+      Scanner sc = new Scanner(System.in);
+      tools tool = new tools();
+
+      File path = new File("Data");
+
+      String[] contents = path.list();
+      String conts = "";
+      String spliby = ">-...-<";
+
+      for (int i = 0;i<contents.length ;i++ ) {
+        if (!contents[i].contains("Book")) {
+          contents[i] = null;
+        }else{
+          conts += contents[i] + spliby;
+        }
+      }
+      String[] books = conts.split(spliby);
+
+      for (int i = 0;i < books.length ;i++ ) {
+        wr.printLetterBool(i + " - " + books[i] + "\n",true);
+      }
+      int retInt = -1;
+      String ret = null;
+
+      while(ret == null){
+        wr.printLetterBool("\nEnter the Number of a book to select it\n",true);
+
+        ret = sc.nextLine();
+
+        if (tool.isNumber(ret)==true) {
+          retInt = Integer.parseInt(ret);
+
+          if (retInt < 0 || retInt >= books.length) {
+            ret = null;
+          }
+
+        }else {
+          ret = null;
+        }
+
+      }
+
+      wr.printLetterBool("Selected " + books[retInt] + " as the Default Book\n",true);
+
+      //Finding wich book is selected
+      String selectedBook = "CurrentBook.Book";
+
+      String slash = tools.betweenFiles();
+
+      String currBookIdent = readFile("Data" + slash + "CurrentBook.Book").split("\n")[0];
+
+
+      for (int i = 0;i < books.length;i++ ) {
+        if (!books[i].equals("CurrentBook.Book")) {
+          String ident = readFile("Data" + slash + books[i]).split("\n")[0];
+
+          if (ident.equals(currBookIdent)) {
+            selectedBook = books[i];
+
+          }
+
+        }
+      }
+
+      //Saving previously selected Book
+
+      String currText = readFile("Data" + slash + "CurrentBook.Book");
+      writeToFile(currText,"Data" + slash + selectedBook);
+
+      //Updating current Book
+
+      currText = readFile("Data" + slash + books[retInt]);
+      writeToFile(currText,"Data" + slash + "CurrentBook.Book");
+  }
+
+  public static void writeToFile(String text,String file){
+    try {
+      String[] lines = text.split("\n");
+      FileWriter fw = new FileWriter(file);
       PrintWriter out = new PrintWriter(fw);
 
-      if (newb == true) {
-        out.print(text + "\n0");
-      }else {
-        out.print(text);
+      for (int i = 0;i < lines.length ;i++ ) {
+        out.print(lines[i] + "\n");
       }
 
       out.flush();
-
       out.close();
-
       fw.close();
 
     }catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  public static void newBook(String text,boolean newb){
+    tools tool = new tools();
+    writer wr = new writer();
+    Scanner sc = new Scanner(System.in);
+    String slash = tool.betweenFiles();
+
+    String bookname = "CurrentBook";
+
+    if (newb == true) {
+      wr.printLetterBool("Please Name the Book\n",true);
+      bookname = sc.nextLine();
+      bookname = bookname.replace(" ","-");
+    }
+
+    for(int i = 0;i < 2;i++){
+      try {
+
+        FileWriter fw = new FileWriter("Data"+ slash + bookname +".Book");
+        PrintWriter out = new PrintWriter(fw);
+
+        if (newb == true) {
+          out.print(text + "\n0");
+        }else {
+          out.print(text);
+        }
+
+        out.flush();
+
+        out.close();
+
+        fw.close();
+
+      }catch (IOException e) {
+        e.printStackTrace();
+      }
+      if (bookname.contains("CurrentBook")) {
+        i = 2;
+
+      }else {
+        bookname = "CurrentBook";
+      }
     }
   }
 
@@ -38,7 +156,7 @@ public class fileWorks{
     String text = "";
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"CurrentBook.txt"));
+      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"CurrentBook.Book"));
       while((line = br.readLine())!= null){
         text = text + line + "\n";
       }
@@ -55,7 +173,7 @@ public class fileWorks{
     name = name.replace("!new","");
     name = name.replace(" ","");
 
-    String file = "Data"+slash + name + ".txt";
+    String file = "Data"+slash + name + ".Note";
 
 
     try {
@@ -75,13 +193,13 @@ public class fileWorks{
 
       String[] nl = noteList();
 
-      FileWriter fwr = new FileWriter("Data"+slash+"noteList.txt");
+      FileWriter fwr = new FileWriter("Data"+slash+"noteList.data");
       PrintWriter outt = new PrintWriter(fwr);
 
       for (int i = 0;i < nl.length ;i++ ) {
         outt.print(nl[i] + "\n");
       }
-      outt.print(name + ".txt\n");
+      outt.print(name + ".Note\n");
 
       outt.flush();
       outt.close();
@@ -102,15 +220,15 @@ public class fileWorks{
 
     String file = "";
 
-    if (!name.contains(".txt")) {
-      file = name + ".txt";
+    if (!name.contains(".Note")) {
+      file = name + ".Note";
     }else {
       file = name;
     }
 
     try {
       //Creating new file
-      FileWriter fw = new FileWriter("Data"+slash+"selectedNote.txt");
+      FileWriter fw = new FileWriter("Data"+slash+"selectedNote.data");
       PrintWriter out = new PrintWriter(fw);
 
       out.print(file);
@@ -134,7 +252,7 @@ public class fileWorks{
     String line = "";
 
     try {
-      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"noteList.txt"));
+      BufferedReader br = new BufferedReader(new FileReader("Data"+slash+"noteList.data"));
       while((line = br.readLine())!=null){
         list = list + line + "\n";
       }
@@ -170,7 +288,7 @@ public class fileWorks{
     note = note.replace("!note","");
     note = note.replace("!n","\n");
 
-    String selnote = readFile("Data"+slash+"selectedNote.txt");
+    String selnote = readFile("Data"+slash+"selectedNote.data");
     selnote = selnote.replace(" ","");
     selnote = selnote.replace("\n","");
     selnote = "Data" + slash + selnote;
@@ -199,4 +317,6 @@ public class fileWorks{
       e.printStackTrace();
     }
   }
+
+
 }
