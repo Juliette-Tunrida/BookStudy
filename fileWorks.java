@@ -8,6 +8,26 @@ import java.io.PrintWriter;
 
 public class fileWorks{
 
+  public static int textSpeed(){
+    tools tool = new tools();
+    String slash = tool.betweenFiles();
+    int sint = 0;
+    try {
+
+      BufferedReader br = new BufferedReader(new FileReader("Data" + slash+ "textSpeed.data"));
+
+      String speed = br.readLine();
+
+      if (tool.isNumber(speed)) {
+        sint = Integer.parseInt(speed);
+      }
+
+    }catch (IOException e) {
+      e.printStackTrace();
+    }
+    return sint;
+  }
+
   public static void changeMainBook(){
 
       writer wr = new writer();
@@ -318,5 +338,7 @@ public class fileWorks{
     }
   }
 
-
+  public static void main(String[] args) {
+    System.out.println(textSpeed());
+  }
 }

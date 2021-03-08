@@ -59,6 +59,8 @@ public class studyTools{
         wr.printLetterBool("    !note + your text - Writes a note in the current file (use !n for new lines)\n",true);
         wr.printLetterBool("    !new + name - Creates a new note File\n",true);
         wr.printLetterBool("    !change - gives you a list of note files and allows you to switch the selected one\n",true);
+        wr.printLetterBool("    !speed - allows you to change the default text speed\n",true);
+
 
         ret = sc.nextLine();
       }else if (ret.contains("!new")) {
@@ -97,6 +99,9 @@ public class studyTools{
           }
         }
         ret = sc.nextLine();
+      }else if (ret.contains("!speed")) {
+        changeSpeed();
+        ret = sc.nextLine();
       }else{
 
         selected = true;
@@ -111,8 +116,28 @@ public class studyTools{
 
   }
 
+  public static void changeSpeed(){
+    writer wr = new writer();
+    fileWorks fw = new fileWorks();
+    Scanner sc = new Scanner(System.in);
+    tools tool = new tools();
+    String slash = tools.betweenFiles();
+    int newspeed = fw.textSpeed();
 
+    for (boolean done = false; done == false ; ) {
+      wr.printLetters("Current Speed is " + newspeed + "\nenter your new speed or enter !done\n",newspeed);
+      String ret = sc.nextLine();
 
+      if (tool.isNumber(ret)) {
+        newspeed = Integer.parseInt(ret);
+        fw.writeToFile(String.valueOf(newspeed),"Data"+slash+"textSpeed.data");
+      }else if (ret.equals("!done")) {
+        done = true;
+      }else{
+        wr.printLetters("Sorry that was not a number\n",newspeed);
+      }
+    }
+  }
 
 
 }
