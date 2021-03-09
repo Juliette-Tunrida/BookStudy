@@ -32,8 +32,9 @@ public class writer{
 
   public static void printLetterFilter(String letters, boolean readFast){
     tools tool = new tools();
+    fileWorks fw = new fileWorks();
     //Change speed
-    int speed = 95;
+    int speed = fw.textSpeed();
     if (readFast) {
       speed = 35;
     }
