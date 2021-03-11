@@ -40,23 +40,6 @@ public class studyTools{
         }
         newParas = newParas + "\n";
 
-        // //Splits sentences
-        // String[] temp = paragraphs[i].split(".");
-        //
-        // //adds untill msx charater length has been reached
-        // String tempParas = "";
-        //
-        // for(int j = 0;j < temp.length;j++) {
-        //
-        //   if(tempParas.length() > maxleng){
-        //     newParas = newParas + "\n";
-        //     tempParas = "";
-        //   }
-        //
-        //   tempParas = tempParas + "." + temp[j];
-        //   newParas = newParas + "." + temp[j];
-        // }
-
       }else{
         newParas = newParas + "\n" + paragraphs[i];
       }
@@ -186,8 +169,6 @@ public class studyTools{
     }
   }
 
-  public static void main(String[] args) {
-    readLoop();
-  }
+
 
 }
