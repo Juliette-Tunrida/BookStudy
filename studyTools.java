@@ -19,14 +19,61 @@ public class studyTools{
       paraInt = Integer.parseInt(para);
     }
 
+    //Making sure book isnt too long. also should be compatible with previous versions
+    String newParas = "";
+    int maxleng = 500;
+
+    for (int i = paraInt;i < paragraphs.length;i++ ) {
+
+      //checks if the paragraph is longer than 500 characters.
+      if(paragraphs[i].length() > maxleng){
+
+        String[] tempParas = paragraphs[i].split("");
+        int g = 0;
+        for (int j = 0;j < tempParas.length; j++) {
+          newParas = newParas + tempParas[j];
+          g ++;
+
+          if(g > maxleng && tempParas[j].equals(".")){
+            newParas = newParas + "\n";
+          }
+        }
+        newParas = newParas + "\n";
+
+        // //Splits sentences
+        // String[] temp = paragraphs[i].split(".");
+        //
+        // //adds untill msx charater length has been reached
+        // String tempParas = "";
+        //
+        // for(int j = 0;j < temp.length;j++) {
+        //
+        //   if(tempParas.length() > maxleng){
+        //     newParas = newParas + "\n";
+        //     tempParas = "";
+        //   }
+        //
+        //   tempParas = tempParas + "." + temp[j];
+        //   newParas = newParas + "." + temp[j];
+        // }
+
+      }else{
+        newParas = newParas + "\n" + paragraphs[i];
+      }
+    }
+
+
+    String[] newParagraphs = newParas.split("\n");
+
+
     //Read the book starting at the Selected paragraph
-    for (int i = paraInt; i < paragraphs.length; i++) {
-      wr.printLetterFilter(paragraphs[i] + "\n",false);
+    for (int i = paraInt; i < newParagraphs.length; i++) {
+      wr.printLetterFilter(newParagraphs[i] + "\n",false);
 
       //updating the number in the bookfile in case the terminal is terminated
       String outBook ="";
-      for (int j = 0;j < paragraphs.length -1;j++ ) {
-        outBook = outBook + paragraphs[j] + "\n";
+      for (int j = 0;j < newParagraphs.length -1;j++ ) {
+        outBook = outBook + newParagraphs[j] + "\n";
       }
       outBook = outBook + "\n" + (i+1);
 
@@ -139,5 +186,8 @@ public class studyTools{
     }
   }
 
+  public static void main(String[] args) {
+    readLoop();
+  }
 
 }
