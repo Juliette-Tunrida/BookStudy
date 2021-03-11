@@ -36,6 +36,7 @@ public class studyTools{
 
           if(g > maxleng && tempParas[j].equals(".")){
             newParas = newParas + "\n";
+            g=0;
           }
         }
         newParas = newParas + "\n";
